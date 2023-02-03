@@ -1,13 +1,10 @@
 import { useEffect } from 'react';
 
-export default function useCloseModalByEscape(
-  setModalIsOpen,
-  setStockAvailable
-) {
+export function useCloseModalByEscape(setModalIsOpen) {
   useEffect(() => {
     const closeOnEscapeKey = (event) => {
       if (event.key === 'Escape') {
-        setStockAvailable([]);
+        // setStockAvailable([]);
         setModalIsOpen(false);
       }
     };

@@ -29,24 +29,24 @@ export const Container = styled.div`
     font-size: 14px;
     margin-bottom: 8px;
   }
+`;
 
-  input {
-    margin-top: 16px;
-    width: 100%;
-    border: 1px solid transparent;
-    border-radius: 4px;
-    outline: none;
-    padding: 6px 12px;
+export const Input = styled.input`
+  margin-top: 16px;
+  width: 100%;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  outline: none;
+  padding: 6px 12px;
 
-    &::placeholder {
-      color: #bcbcbc;
-    }
+  &::placeholder {
+    color: #bcbcbc;
+  }
 
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.04);
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.04);
 
-    &:focus {
-      border: 1px solid ${({ theme }) => theme.colors.primary.main};
-    }
+  &:focus {
+    border: 1px solid ${({ theme }) => theme.colors.primary.main};
   }
 `;
 

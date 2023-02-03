@@ -9,10 +9,21 @@ export default function Card({
   regularMarketPrice,
   regularMarketChange,
   regularMarketChangePercent,
-  removeStock,
+  setStoredValue,
 }) {
   const volatilityIsPositive =
     regularMarketChange === 0 ? 'equal' : regularMarketChange > 0;
+
+  const handleRemoveStock = (event) => {
+    setStoredValue((oldValue) =>
+      oldValue.filter(
+        (item) => item !== event.target.parentNode.getAttribute('value')
+      )
+    );
+  };
+  // How can I remove a stock and don't recall the endpoint? Because the application already has the necessary information
+  // storedValue update every time that I set a new stock. So, if I want to only run this effect when add a new stock
+  // This need to be inside the
   return (
     <Container>
       <div>
@@ -32,7 +43,7 @@ export default function Card({
           </p>
         </StockVolatility>
       </div>
-      <button value={symbol} type="button" onClick={removeStock}>
+      <button value={symbol} type="button" onClick={handleRemoveStock}>
         <img src={trash} alt="Delete stock" />
       </button>
     </Container>

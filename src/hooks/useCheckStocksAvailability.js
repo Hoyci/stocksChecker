@@ -1,16 +1,17 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import { STOCKS } from '../api/stocks';
 
-export default function useCheckStocksAvailability(
-  stockName,
-  setStocksAvailable
-) {
+export function useCheckStocksAvailability(debouncedStockName) {
+  const [result, setResult] = useState([]);
   useEffect(() => {
     const fetchStock = async () => {
-      const { data } = await STOCKS.get(`available?search=${stockName}`);
-      return data?.stocks ? setStocksAvailable(data.stocks) : null;
+      const { data } = await STOCKS.get(
+        `available?search=${debouncedStockName}`
+      );
+      setResult(data?.stocks.slice(0, 19));
     };
     fetchStock();
-  }, [stockName]);
+  }, [debouncedStockName]);
+  return result;
 }

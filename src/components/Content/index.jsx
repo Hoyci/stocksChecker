@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { Modal } from '../Modal';
 import { Line } from '../Line';
 import {
   BoxMessage,
@@ -11,11 +10,12 @@ import {
 import BoxImage from '../../assets/images/box.svg';
 import Card from '../Card';
 import { STOCKS } from '../../api/stocks';
+import NewStockModal from '../Modal/newStockModal';
+// import { stocksMock } from './mock';
 
 export default function Content({ storedValue, setStoredValue }) {
-  // TODO: create a way to searh by stock without recall the api because the application already has the necessary information
   const [stocksResponse, setStocksResponse] = useState([]);
-  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -38,31 +38,20 @@ export default function Content({ storedValue, setStoredValue }) {
   // This need to be a generic hook to fetch others endpoints?
   // How i'll handle with the setIsLoading to close modal if this is a generic component?
 
-  const handleRemoveStock = (event) => {
-    setStoredValue((oldValue) =>
-      oldValue.filter(
-        (item) => item !== event.target.parentNode.getAttribute('value')
-      )
-    );
-  };
-  // How can I remove a stock and don't recall the endpoint? Because the application already has the necessary information
-
   const handleModalOpen = () => {
-    setModalIsOpen(true);
+    setIsModalOpen(true);
     setIsLoading(true);
   };
 
   return (
     <>
-      {modalIsOpen && (
-        <Modal
-          isLoading={isLoading}
-          setIsLoading={setIsLoading}
-          setModalIsOpen={setModalIsOpen}
-          modalIsOpen={modalIsOpen}
-          setStoredValue={setStoredValue}
-        />
-      )}
+      <NewStockModal
+        isModalOpen={isModalOpen}
+        isLoading={isLoading}
+        setIsLoading={setIsLoading}
+        setModalIsOpen={setIsModalOpen}
+        setStoredValue={setStoredValue}
+      />
       <Container>
         <ButtonNewStock type="button" onClick={handleModalOpen}>
           New stock
@@ -85,7 +74,7 @@ export default function Content({ storedValue, setStoredValue }) {
                   regularMarketPrice={regularMarketPrice}
                   regularMarketChange={regularMarketChange}
                   regularMarketChangePercent={regularMarketChangePercent}
-                  removeStock={handleRemoveStock}
+                  setStoredValue={setStoredValue}
                 />
               )
             )}
